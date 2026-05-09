@@ -293,32 +293,38 @@
 
         /* ══ SCRISOARE ══ */
         .letter-wrap {
-            position: absolute;
-            top: 0; left: 50%;
-            transform: translateX(-50%) translateY(0);
-            width: 310px;
-            z-index: 2;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
             opacity: 0;
             pointer-events: none;
+            padding: 16px;
         }
         .letter-wrap.rising {
-            animation: letterRise 0.9s cubic-bezier(0.34,1.2,0.64,1) 0.35s forwards;
+            animation: letterFadeIn 0.7s cubic-bezier(0.34,1.2,0.64,1) 0.35s forwards;
         }
-        @keyframes letterRise {
-            from { opacity:0; transform: translateX(-50%) translateY(10px); }
-            to   { opacity:1; transform: translateX(-50%) translateY(-360px); }
+        @keyframes letterFadeIn {
+            from { opacity:0; transform: scale(0.85); }
+            to   { opacity:1; transform: scale(1); }
         }
 
         .letter-paper {
             background: #fffef8;
             border-radius: 3px;
-            padding: 28px 26px 24px 26px;
+            padding: 18px 18px 16px 18px;
             box-shadow:
                 0 25px 70px rgba(0,0,0,0.6),
                 0 0 0 1px rgba(0,0,0,0.06),
                 inset 0 0 40px rgba(255,240,210,0.4);
             position: relative;
-            clip-path: polygon(0% 0%, calc(100% - 20px) 0%, 100% 20px, 100% 100%, 0% 100%);
+            clip-path: polygon(0% 0%, calc(100% - 16px) 0%, 100% 16px, 100% 100%, 0% 100%);
+            width: 100%;
+            max-width: 340px;
+            max-height: 90vh;
+            overflow-y: auto;
         }
         .letter-paper::before {
             content: '';
@@ -349,47 +355,47 @@
         .letter-content { position: relative; z-index: 1; }
 
         .letter-date {
-            font-size: 11px;
+            font-size: 10px;
             color: rgba(100,80,60,0.45);
             text-align: right;
-            margin-bottom: 14px;
+            margin-bottom: 8px;
             font-style: italic;
         }
         .letter-dear {
             font-family: 'Dancing Script', cursive;
-            font-size: 21px;
+            font-size: 17px;
             color: #c00040;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             font-weight: 700;
         }
         .letter-body {
-            font-size: 13px;
+            font-size: 12px;
             color: #3a2a1a;
-            line-height: 1.9;
+            line-height: 1.75;
             font-style: italic;
         }
-        .letter-body p { margin-bottom: 10px; }
+        .letter-body p { margin-bottom: 7px; }
 
         .letter-sign {
-            margin-top: 16px;
+            margin-top: 10px;
             text-align: right;
         }
         .letter-sign .sign-with {
-            font-size: 12px;
+            font-size: 11px;
             color: rgba(100,80,60,0.45);
             font-style: italic;
         }
         .letter-sign .sign-name {
             font-family: 'Dancing Script', cursive;
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 700;
             color: #c00040;
         }
         .letter-hearts {
             text-align: center;
-            font-size: 17px;
-            margin-top: 10px;
-            letter-spacing: 5px;
+            font-size: 15px;
+            margin-top: 6px;
+            letter-spacing: 4px;
         }
 
         /* Deschidere plic */
@@ -458,43 +464,11 @@
         </div>
     </div>
 
-    <div class="click-hint" id="hint">✨ se deschide singur ✨</div>
-    <div class="countdown" id="countdown-text">în câteva secunde...</div>
-    <div class="countdown-ring" id="ring" style="margin:8px auto 0 auto;">
-        <svg width="36" height="36" viewBox="0 0 36 36">
-            <circle cx="18" cy="18" r="15"/>
-            <circle class="progress" id="ring-progress" cx="18" cy="18" r="15"
-                    style="stroke-dasharray:94.2; stroke-dashoffset:0;"/>
-        </svg>
-        <div class="countdown-num" id="ring-num">5</div>
-    </div>
+    <div class="click-hint" id="hint">✨ apasă pe plic ✨</div>
 
 </div>
 
 <script>
-// ── Deschide automat dupa 5 secunde ─────────────────────────
-let timeLeft = 5;
-const ringProgress = document.getElementById('ring-progress');
-const ringNum      = document.getElementById('ring-num');
-const cdText       = document.getElementById('countdown-text');
-const circumference = 94.2;
-
-const cdInterval = setInterval(() => {
-    timeLeft--;
-    ringNum.textContent = timeLeft;
-    // Anima cercul
-    const offset = circumference * (1 - timeLeft / 5);
-    ringProgress.style.strokeDashoffset = offset;
-
-    if (timeLeft <= 0) {
-        clearInterval(cdInterval);
-        document.getElementById('ring').style.opacity = '0';
-        cdText.style.opacity = '0';
-    }
-}, 1000);
-
-setTimeout(openEnvelope, 5000);
-
 // ── Stele ────────────────────────────────────────────────────
 const starsEl = document.getElementById('stars');
 for (let i = 0; i < 80; i++) {
