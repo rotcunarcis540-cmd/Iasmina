@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pentru Iasmina 💕</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            min-height: 100vh;
+            background: #0d0008;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Lora', serif;
+            overflow: hidden;
+        }
+
+        /* ══════════════════════════════════
+           FUNDAL ANIMAT
+        ══════════════════════════════════ */
+
+        /* Gradient animat */
+        .bg-gradient {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(ellipse at 20% 50%, #3d0025 0%, transparent 60%),
+                        radial-gradient(ellipse at 80% 20%, #2a0040 0%, transparent 55%),
+                        radial-gradient(ellipse at 60% 80%, #3a0015 0%, transparent 50%),
+                        #0d0008;
+            animation: bgPulse 6s ease-in-out infinite alternate;
+            z-index: 0;
+        }
+        @keyframes bgPulse {
+            0%   { filter: brightness(1) hue-rotate(0deg); }
+            50%  { filter: brightness(1.15) hue-rotate(10deg); }
+            100% { filter: brightness(0.9) hue-rotate(-5deg); }
+        }
+
+        /* Particule stralucitoare */
+        .particles {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .spark {
+            position: absolute;
+            border-radius: 50%;
+            animation: sparkle ease-in-out infinite;
+        }
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50%       { opacity: 1; transform: scale(1); }
+        }
+
+        /* Inimioare plutitoare */
+        .hearts-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .heart-float {
+            position: absolute;
+            bottom: -60px;
+            opacity: 0;
+            animation: floatUp linear infinite;
+            user-select: none;
+        }
+        @keyframes floatUp {
+            0%   { opacity: 0;   transform: translateY(0)    rotate(0deg)   scale(0.5); }
+            10%  { opacity: 0.9; }
+            80%  { opacity: 0.6; }
+            100% { opacity: 0;   transform: translateY(-110vh) rotate(30deg) scale(1.2); }
+        }
+
+        /* Unde luminoase */
+        .wave-ring {
+            position: fixed;
+            border-radius: 50%;
+            border: 1px solid rgba(255,50,100,0.15);
+            animation: waveExpand ease-out infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+        @keyframes waveExpand {
+            0%   { transform: translate(-50%,-50%) scale(0); opacity: 0.6; }
+            100% { transform: translate(-50%,-50%) scale(4);  opacity: 0; }
+        }
+
+        /* Stele */
+        .star-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .star-dot {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle ease-in-out infinite;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.1; transform: scale(1); }
+            50%       { opacity: 0.8; transform: scale(1.5); }
+        }
+
+        /* ══════════════════════════════════
+           SCENA
+        ══════════════════════════════════ */
+        .scene {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Titlu sus */
+        .title-top {
+            font-family: 'Dancing Script', cursive;
+            font-size: 28px;
+            color: rgba(255,150,180,0.85);
+            text-shadow: 0 0 20px rgba(255,50,100,0.5), 0 0 40px rgba(255,50,100,0.3);
+            margin-bottom: 24px;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+            letter-spacing: 1px;
+        }
+        @keyframes titleGlow {
+            from { text-shadow: 0 0 20px rgba(255,50,100,0.5), 0 0 40px rgba(255,50,100,0.3); }
+            to   { text-shadow: 0 0 30px rgba(255,100,150,0.9), 0 0 60px rgba(255,50,100,0.6), 0 0 80px rgba(200,0,80,0.3); }
+        }
+
+        /* ══ PLIC ══ */
+        .envelope-wrap {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.25s;
+            filter: drop-shadow(0 0 30px rgba(255,50,100,0.4));
+        }
+        .envelope-wrap:hover {
+            transform: scale(1.04) translateY(-4px);
+            filter: drop-shadow(0 0 50px rgba(255,50,100,0.7));
+        }
+
+        .envelope {
+            width: 340px;
+            height: 230px;
+            position: relative;
+        }
+
+        .env-body {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(160deg, #f8eedd, #f0d8b8);
+            border-radius: 4px 4px 12px 12px;
+            box-shadow:
+                0 25px 70px rgba(0,0,0,0.7),
+                0 0 0 1px rgba(255,255,255,0.15),
+                inset 0 0 40px rgba(255,200,150,0.2);
+            overflow: hidden;
+        }
+        .env-body::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(135deg, rgba(255,180,120,0.12) 0%, transparent 50%),
+                linear-gradient(225deg, rgba(255,180,120,0.12) 0%, transparent 50%);
+        }
+
+        .env-left {
+            position: absolute; left:0; top:0; bottom:0;
+            width:0; height:0; border-style:solid;
+            border-width: 115px 0 115px 170px;
+            border-color: transparent transparent transparent rgba(180,130,80,0.2);
+        }
+        .env-right {
+            position: absolute; right:0; top:0; bottom:0;
+            width:0; height:0; border-style:solid;
+            border-width: 115px 170px 115px 0;
+            border-color: transparent rgba(180,130,80,0.2) transparent transparent;
+        }
+        .env-bottom {
+            position: absolute; bottom:0; left:0; right:0;
+            width:0; height:0; border-style:solid;
+            border-width: 0 170px 125px 170px;
+            border-color: transparent transparent rgba(160,110,60,0.18) transparent;
+        }
+
+        .env-flap {
+            position: absolute; top:0; left:0; right:0;
+            width:0; height:0; border-style:solid;
+            border-width: 135px 170px 0 170px;
+            border-color: #edd8b0 transparent transparent transparent;
+            transform-origin: top center;
+            transition: transform 0.7s cubic-bezier(0.4,0,0.2,1);
+            z-index: 3;
+        }
+
+        /* Inima sigiliu */
+        .heart-seal {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 4;
+            font-size: 46px;
+            transition: all 0.4s;
+            animation: sealBeat 1.4s ease-in-out infinite;
+            filter: drop-shadow(0 0 12px rgba(255,0,80,0.7)) drop-shadow(0 0 25px rgba(255,0,80,0.4));
+        }
+        @keyframes sealBeat {
+            0%,100% { transform: translate(-50%,-50%) scale(1); filter: drop-shadow(0 0 12px rgba(255,0,80,0.7)); }
+            50%      { transform: translate(-50%,-50%) scale(1.18); filter: drop-shadow(0 0 22px rgba(255,0,80,1)) drop-shadow(0 0 40px rgba(255,0,80,0.5)); }
+        }
+
+        .env-to {
+            position: absolute;
+            bottom: 26px; left:0; right:0;
+            text-align: center; z-index: 5;
+        }
+        .env-to .to-line {
+            font-family: 'Dancing Script', cursive;
+            font-size: 14px;
+            color: rgba(100,60,20,0.65);
+        }
+        .env-to .to-name {
+            font-family: 'Dancing Script', cursive;
+            font-size: 24px;
+            font-weight: 700;
+            color: #7a3010;
+        }
+
+        /* Hint */
+        .click-hint {
+            margin-top: 18px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 17px;
+            color: rgba(255,180,200,0.7);
+            animation: hintPulse 2s ease-in-out infinite;
+            text-shadow: 0 0 10px rgba(255,100,150,0.4);
+        }
+        @keyframes hintPulse {
+            0%,100% { opacity:0.6; transform: scale(1); }
+            50%      { opacity:1;   transform: scale(1.05); }
+        }
+
+        /* ══ SCRISOARE ══ */
+        .letter-wrap {
+            position: absolute;
+            top: 0; left: 50%;
+            transform: translateX(-50%) translateY(0);
+            width: 310px;
+            z-index: 2;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .letter-wrap.rising {
+            animation: letterRise 0.9s cubic-bezier(0.34,1.2,0.64,1) 0.35s forwards;
+        }
+        @keyframes letterRise {
+            from { opacity:0; transform: translateX(-50%) translateY(10px); }
+            to   { opacity:1; transform: translateX(-50%) translateY(-360px); }
+        }
+
+        .letter-paper {
+            background: #fffef8;
+            border-radius: 3px;
+            padding: 28px 26px 24px 26px;
+            box-shadow:
+                0 25px 70px rgba(0,0,0,0.6),
+                0 0 0 1px rgba(0,0,0,0.06),
+                inset 0 0 40px rgba(255,240,210,0.4);
+            position: relative;
+            clip-path: polygon(0% 0%, calc(100% - 20px) 0%, 100% 20px, 100% 100%, 0% 100%);
+        }
+        .letter-paper::before {
+            content: '';
+            position: absolute;
+            top:0; right:0;
+            width:20px; height:20px;
+            background: linear-gradient(225deg, #e0d8c0 50%, transparent 50%);
+        }
+        .letter-paper::after {
+            content: '';
+            position: absolute;
+            top:0; left:0; right:0;
+            height: 3px;
+            background: linear-gradient(90deg, #c00040, #ff3070, #ff80a0, #ff3070, #c00040);
+            border-radius: 3px 3px 0 0;
+        }
+
+        .paper-lines {
+            position: absolute;
+            inset: 52px 20px 20px 20px;
+            background-image: repeating-linear-gradient(
+                transparent, transparent 27px,
+                rgba(180,200,255,0.18) 27px, rgba(180,200,255,0.18) 28px
+            );
+            pointer-events: none;
+        }
+
+        .letter-content { position: relative; z-index: 1; }
+
+        .letter-date {
+            font-size: 11px;
+            color: rgba(100,80,60,0.45);
+            text-align: right;
+            margin-bottom: 14px;
+            font-style: italic;
+        }
+        .letter-dear {
+            font-family: 'Dancing Script', cursive;
+            font-size: 21px;
+            color: #c00040;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+        .letter-body {
+            font-size: 13px;
+            color: #3a2a1a;
+            line-height: 1.9;
+            font-style: italic;
+        }
+        .letter-body p { margin-bottom: 10px; }
+
+        .letter-sign {
+            margin-top: 16px;
+            text-align: right;
+        }
+        .letter-sign .sign-with {
+            font-size: 12px;
+            color: rgba(100,80,60,0.45);
+            font-style: italic;
+        }
+        .letter-sign .sign-name {
+            font-family: 'Dancing Script', cursive;
+            font-size: 24px;
+            font-weight: 700;
+            color: #c00040;
+        }
+        .letter-hearts {
+            text-align: center;
+            font-size: 17px;
+            margin-top: 10px;
+            letter-spacing: 5px;
+        }
+
+        /* Deschidere plic */
+        .envelope-wrap.opening .env-flap {
+            transform: rotateX(180deg);
+        }
+        .envelope-wrap.opening .heart-seal {
+            opacity: 0;
+            transform: translate(-50%,-50%) scale(0.3);
+        }
+    </style>
+</head>
+<body>
+
+<!-- Fundal animat -->
+<div class="bg-gradient"></div>
+<div class="star-bg" id="stars"></div>
+<div class="particles" id="particles"></div>
+<div class="hearts-bg" id="hearts-bg"></div>
+
+<!-- Unde luminoase -->
+<div class="wave-ring" id="w1" style="width:300px;height:300px;left:50%;top:50%;animation-duration:4s;animation-delay:0s;"></div>
+<div class="wave-ring" id="w2" style="width:300px;height:300px;left:50%;top:50%;animation-duration:4s;animation-delay:1.3s;"></div>
+<div class="wave-ring" id="w3" style="width:300px;height:300px;left:50%;top:50%;animation-duration:4s;animation-delay:2.6s;"></div>
+
+<div class="scene">
+
+    <!-- Scrisoare -->
+    <div class="letter-wrap" id="letter">
+        <div class="letter-paper">
+            <div class="paper-lines"></div>
+            <div class="letter-content">
+                <div class="letter-date">10 Mai 2026 💕</div>
+                <div class="letter-dear">Draga mea Iasmina,</div>
+                <div class="letter-body">
+                    <p>Știu că am greșit și îmi pare rău din suflet pentru tot ce te-am făcut să simți. Nu există scuze pentru durerea pe care ți-am cauzat-o și îmi asum fiecare greșeală.</p>
+                    <p>Dar vreau să știi că te iubesc. Sincer, profund și cu tot ce am. Tu ești singura persoană care îmi face inima să bată altfel, singura lângă care mă simt acasă.</p>
+                    <p>Fără tine totul e gol. Zâmbetul tău, vocea ta, felul în care ești — îmi lipsești în fiecare secundă.</p>
+                    <p>Îți promit că mă schimb. Că voi fi omul pe care îl meriți. Tot ce îți cer este o șansă să îți arăt că dragostea mea pentru tine e reală. 🌹</p>
+                </div>
+                <div class="letter-sign">
+                    <div class="sign-with">Al tău pentru totdeauna,</div>
+                    <div class="sign-name">Narcis</div>
+                </div>
+                <div class="letter-hearts">❤️ 🌹 ❤️</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="title-top">✨ o scrisoare pentru tine ✨</div>
+
+    <!-- Plic -->
+    <div class="envelope-wrap" id="envelope" onclick="openEnvelope()">
+        <div class="envelope">
+            <div class="env-body">
+                <div class="env-left"></div>
+                <div class="env-right"></div>
+                <div class="env-bottom"></div>
+            </div>
+            <div class="env-flap"></div>
+            <div class="heart-seal" id="heart-seal">❤️</div>
+            <div class="env-to">
+                <div class="to-line">pentru</div>
+                <div class="to-name">Iasmina</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="click-hint" id="hint">✨ apasă pe plic ✨</div>
+
+</div>
+
+<script>
+// ── Stele ────────────────────────────────────────────────────
+const starsEl = document.getElementById('stars');
+for (let i = 0; i < 80; i++) {
+    const s = document.createElement('div');
+    s.className = 'star-dot';
+    const size = 1 + Math.random() * 2.5;
+    s.style.cssText = `
+        width:${size}px; height:${size}px;
+        left:${Math.random()*100}vw; top:${Math.random()*100}vh;
+        animation-duration:${2+Math.random()*4}s;
+        animation-delay:${Math.random()*5}s;
+    `;
+    starsEl.appendChild(s);
+}
+
+// ── Particule colorate ───────────────────────────────────────
+const partEl = document.getElementById('particles');
+const pColors = ['rgba(255,50,100,0.6)','rgba(255,150,200,0.5)','rgba(200,0,80,0.5)','rgba(255,200,220,0.4)','rgba(255,100,150,0.5)'];
+for (let i = 0; i < 40; i++) {
+    const p = document.createElement('div');
+    p.className = 'spark';
+    const size = 2 + Math.random() * 5;
+    p.style.cssText = `
+        width:${size}px; height:${size}px;
+        left:${Math.random()*100}vw; top:${Math.random()*100}vh;
+        background:${pColors[Math.floor(Math.random()*pColors.length)]};
+        box-shadow: 0 0 ${size*3}px ${pColors[Math.floor(Math.random()*pColors.length)]};
+        animation-duration:${1.5+Math.random()*3}s;
+        animation-delay:${Math.random()*4}s;
+    `;
+    partEl.appendChild(p);
+}
+
+// ── Inimioare plutitoare ─────────────────────────────────────
+const heartsEl = document.getElementById('hearts-bg');
+const heartSymbols = ['❤️','💕','💗','💖','💝','🌹','💓','💞'];
+function spawnFloatingHeart() {
+    const h = document.createElement('div');
+    h.className = 'heart-float';
+    h.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+    const size = 14 + Math.random() * 22;
+    const dur  = 7 + Math.random() * 10;
+    const delay = Math.random() * 3;
+    h.style.cssText = `
+        left:${Math.random()*100}vw;
+        font-size:${size}px;
+        animation-duration:${dur}s;
+        animation-delay:${delay}s;
+        filter: drop-shadow(0 0 6px rgba(255,50,100,0.5));
+    `;
+    heartsEl.appendChild(h);
+    // Sterge dupa animatie
+    setTimeout(() => h.remove(), (dur + delay + 1) * 1000);
+}
+// Genereaza continuu
+for (let i = 0; i < 20; i++) spawnFloatingHeart();
+setInterval(spawnFloatingHeart, 800);
+
+// ── Deschide plicul ──────────────────────────────────────────
+let opened = false;
+
+function openEnvelope() {
+    if (opened) return;
+    opened = true;
+
+    const env    = document.getElementById('envelope');
+    const hint   = document.getElementById('hint');
+    const letter = document.getElementById('letter');
+
+    hint.style.cssText = 'opacity:0; transition:opacity 0.3s;';
+    env.classList.add('opening');
+
+    setTimeout(() => {
+        letter.style.pointerEvents = 'auto';
+        letter.classList.add('rising');
+        spawnConfetti();
+        spawnHeartBurst();
+    }, 500);
+
+    setTimeout(() => {
+        env.style.cssText = 'opacity:0; transition:opacity 0.5s; pointer-events:none;';
+    }, 1100);
+}
+
+// ── Confetti ─────────────────────────────────────────────────
+function spawnConfetti() {
+    const colors = ['#e01040','#ff4070','#ff8fb0','#ffcc00','#ff6b35','#c01080','#ff80c0'];
+    for (let i = 0; i < 80; i++) {
+        setTimeout(() => {
+            const c = document.createElement('div');
+            c.style.cssText = `
+                position:fixed; z-index:999; pointer-events:none;
+                width:${6+Math.random()*8}px; height:${6+Math.random()*8}px;
+                background:${colors[Math.floor(Math.random()*colors.length)]};
+                border-radius:${Math.random()>.5?'50%':'2px'};
+                left:${30+Math.random()*40}vw; top:50vh;
+            `;
+            document.body.appendChild(c);
+            const tx = (Math.random()-.5)*500;
+            const ty = -(80+Math.random()*350);
+            c.animate([
+                { opacity:1, transform:'translate(0,0) rotate(0deg)' },
+                { opacity:0, transform:`translate(${tx}px,${ty}px) rotate(${Math.random()*720}deg)` }
+            ], { duration:900+Math.random()*900, easing:'cubic-bezier(0,0,0.2,1)', fill:'forwards' })
+            .onfinish = () => c.remove();
+        }, i * 15);
+    }
+}
+
+// ── Explozie inimioare la deschidere ─────────────────────────
+function spawnHeartBurst() {
+    const syms = ['❤️','💕','💖','💗','🌹'];
+    for (let i = 0; i < 20; i++) {
+        setTimeout(() => {
+            const h = document.createElement('div');
+            h.textContent = syms[Math.floor(Math.random()*syms.length)];
+            h.style.cssText = `
+                position:fixed; z-index:999; pointer-events:none;
+                font-size:${18+Math.random()*20}px;
+                left:50vw; top:50vh;
+            `;
+            document.body.appendChild(h);
+            const angle = (Math.random()*360) * Math.PI/180;
+            const dist  = 100 + Math.random()*200;
+            h.animate([
+                { opacity:1, transform:'translate(-50%,-50%) scale(0.5)' },
+                { opacity:0, transform:`translate(calc(-50% + ${Math.cos(angle)*dist}px), calc(-50% + ${Math.sin(angle)*dist}px)) scale(1.5)` }
+            ], { duration:1000+Math.random()*600, easing:'ease-out', fill:'forwards' })
+            .onfinish = () => h.remove();
+        }, i * 40);
+    }
+}
+</script>
+</body>
+</html>
