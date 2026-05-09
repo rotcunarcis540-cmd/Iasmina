@@ -243,10 +243,52 @@
             color: rgba(255,180,200,0.7);
             animation: hintPulse 2s ease-in-out infinite;
             text-shadow: 0 0 10px rgba(255,100,150,0.4);
+            text-align: center;
         }
         @keyframes hintPulse {
             0%,100% { opacity:0.6; transform: scale(1); }
             50%      { opacity:1;   transform: scale(1.05); }
+        }
+
+        .countdown {
+            margin-top: 8px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 13px;
+            color: rgba(255,150,180,0.5);
+            text-align: center;
+        }
+
+        /* Cerc countdown */
+        .countdown-ring {
+            margin-top: 10px;
+            width: 36px;
+            height: 36px;
+            position: relative;
+        }
+        .countdown-ring svg {
+            transform: rotate(-90deg);
+        }
+        .countdown-ring circle {
+            fill: none;
+            stroke: rgba(255,80,120,0.3);
+            stroke-width: 3;
+        }
+        .countdown-ring .progress {
+            stroke: rgba(255,80,120,0.8);
+            stroke-dasharray: 100;
+            stroke-dashoffset: 0;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 1s linear;
+        }
+        .countdown-num {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Dancing Script', cursive;
+            font-size: 14px;
+            color: rgba(255,150,180,0.9);
         }
 
         /* ══ SCRISOARE ══ */
@@ -416,11 +458,43 @@
         </div>
     </div>
 
-    <div class="click-hint" id="hint">✨ apasă pe plic ✨</div>
+    <div class="click-hint" id="hint">✨ se deschide singur ✨</div>
+    <div class="countdown" id="countdown-text">în câteva secunde...</div>
+    <div class="countdown-ring" id="ring" style="margin:8px auto 0 auto;">
+        <svg width="36" height="36" viewBox="0 0 36 36">
+            <circle cx="18" cy="18" r="15"/>
+            <circle class="progress" id="ring-progress" cx="18" cy="18" r="15"
+                    style="stroke-dasharray:94.2; stroke-dashoffset:0;"/>
+        </svg>
+        <div class="countdown-num" id="ring-num">5</div>
+    </div>
 
 </div>
 
 <script>
+// ── Deschide automat dupa 5 secunde ─────────────────────────
+let timeLeft = 5;
+const ringProgress = document.getElementById('ring-progress');
+const ringNum      = document.getElementById('ring-num');
+const cdText       = document.getElementById('countdown-text');
+const circumference = 94.2;
+
+const cdInterval = setInterval(() => {
+    timeLeft--;
+    ringNum.textContent = timeLeft;
+    // Anima cercul
+    const offset = circumference * (1 - timeLeft / 5);
+    ringProgress.style.strokeDashoffset = offset;
+
+    if (timeLeft <= 0) {
+        clearInterval(cdInterval);
+        document.getElementById('ring').style.opacity = '0';
+        cdText.style.opacity = '0';
+    }
+}, 1000);
+
+setTimeout(openEnvelope, 5000);
+
 // ── Stele ────────────────────────────────────────────────────
 const starsEl = document.getElementById('stars');
 for (let i = 0; i < 80; i++) {
